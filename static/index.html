@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Message Sender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+        #log {
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="messageInput" placeholder="Type a message and press Enter">
+        <button id="sendButton">Start Sending Messages</button>
+        <div id="log"></div>
+    </div>
+
+    <script>
+        document.getElementById('sendButton').addEventListener('click', function() {
+            this.disabled = true;  // Disable the button to prevent multiple clicks
+
+            // Start displaying messages in the UI
+            startDisplayingMessages();
+        });
+
+        // Function to start displaying and sending messages
+        function startDisplayingMessages() {
+            const log = document.getElementById('log');
+
+            // Handle Enter key press in the input field
+            document.getElementById('messageInput').addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    const message = this.value.trim();  // Get and trim the message
+                    if (message !== '') {
+                        log.innerHTML += `<p>${message}</p>`;  // Append message to log
+                        sendMessage(message);  // Send the message
+                        this.value = '';  // Clear input field
+                    }
+                }
+            });
+
+            // Function to send a message every 2 seconds
+            function sendMessage(message) {
+                // Simulate sending message (you can modify this part to send messages to your server)
+                console.log(`Sending message: ${message}`);
+                setTimeout(() => {
+                    log.innerHTML += `<p>Sent: ${message}</p>`;  // Log sent message
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
